@@ -15,6 +15,7 @@ type HomeController struct {
 func (c *HomeController) Index() {
 	//判断是否登录
 	c.checkLogin()
+	c.Data["pageTitle"] = "首页"
 	c.setTpl()
 }
 func (c *HomeController) Page404() {
@@ -25,10 +26,14 @@ func (c *HomeController) Error() {
 	c.setTpl("home/error.html", "shared/layout_pullbox.html")
 }
 func (c *HomeController) Login() {
-
+	url ,err :=models.GetBingImg()
+	if err !=nil{
+		url= "/static/sdtheme/img/login_bg.jpg"
+	}
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["headcssjs"] = "home/login_headcssjs.html"
 	c.LayoutSections["footerjs"] = "home/login_footerjs.html"
+	c.Data["url"] = url
 	c.setTpl("home/login.html", "shared/layout_base.html")
 }
 func (c *HomeController) DoLogin() {

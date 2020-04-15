@@ -13,6 +13,6 @@ type JsonResult struct {
 type BaseQueryParam struct {
 	Sort   string `json:"sort"`
 	Order  string `json:"order"`
-	Offset int64  `json:"offset"`
+	Offset int  `json:"offset"`
 	Limit  int    `json:"limit"`
 }

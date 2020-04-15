@@ -28,3 +28,7 @@ sdrms
 /logs/*.log
 /debug
 /sdrms
+conf/app.conf
+bee_admin.exe~
+bee_admin.exe~
+conf/app.conf

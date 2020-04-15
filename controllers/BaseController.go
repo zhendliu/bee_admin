@@ -29,16 +29,17 @@ func (c *BaseController) Prepare() {
 func (c *BaseController) checkLogin() {
 	if c.curUser.Id == 0 {
 		//登录页面地址
-		urlstr := c.URLFor("HomeController.Login") + "?url="
+		urlStr := c.URLFor("HomeController.Login") + "?url="
 		//登录成功后返回的址为当前
 		returnURL := c.Ctx.Request.URL.Path
 		//如果ajax请求则返回相应的错码和跳转的地址
 		if c.Ctx.Input.IsAjax() {
 			//由于是ajax请求，因此地址是header里的Referer
 			returnURL := c.Ctx.Input.Refer()
-			c.jsonResult(enums.JRCode302, "请登录", urlstr+returnURL)
+			c.jsonResult(enums.JRCode302, "请登录", urlStr+returnURL)
 		}
-		c.Redirect(urlstr+returnURL, 302)
+		print("跳转记录:",urlStr+returnURL)
+		c.Redirect(urlStr+returnURL, 302)
 		c.StopRun()
 	}
 }

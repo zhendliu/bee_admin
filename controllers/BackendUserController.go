@@ -31,6 +31,7 @@ func (c *BackendUserController) Index() {
 	//是否显示更多查询条件的按钮弃用，前端自动判断
 	//c.Data["showMoreQuery"] = true
 	//将页面左边菜单的某项激活
+	fmt.Println("获取用户")
 	c.Data["activeSidebarUrl"] = c.URLFor(c.controllerName + "." + c.actionName)
 	//页面模板设置
 	c.setTpl()

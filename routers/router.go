@@ -15,6 +15,11 @@ func init() {
 	beego.Router("/course/updateseq", &controllers.CourseController{}, "Post:UpdateSeq")
 	beego.Router("/course/uploadimage", &controllers.CourseController{}, "Post:UploadImage")
 
+	//企业管理
+	beego.Router("/company/index", &controllers.CompanyController{}, "Get:Index")
+	//企业标签
+
+	//beego.Router("/label/index",&controllers.)
 	//用户角色路由
 	beego.Router("/role/index", &controllers.RoleController{}, "*:Index")
 	beego.Router("/role/datagrid", &controllers.RoleController{}, "Get,Post:DataGrid")
