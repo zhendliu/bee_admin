@@ -1,0 +1,134 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        文件管理
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="{{urlfor "HomeController.Index"}}">
+                <i class="fa fa-dashboard"></i> 首页</a>
+        </li>
+        <li class="active">文件管理</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <!-- 页面内容开始 -->
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <form action="/file/index" class="searchForm" method="get" >
+                <div class="box box-solid collapsed-box">
+                    <div class="box-header with-border">
+                            <input type="text" name="name" class="form-control pull-left input-wd-md" id="name" value="{{if .Name}}{{.Name}}{{end}}" placeholder="名称">
+                        <div class="btn-group searchbtns">
+                                <button type="submit"  class="btn btn-warning">提交</button>
+                                <button type="button" class="btn btn-default" id="btnClearSearch">清除</button>
+                        </div>
+                </div>
+                </div>
+            </form>
+            <!-- /.searchForm -->
+            <div class="box box-solid">
+                <div class="box-body">
+                    <div class="btn-group" id="toolbar">
+                        {{ if .canEdit}}
+                        <button class="btn btn-info" href="javascript:;" onclick="EditFun(0)">
+                            <i class="fa fa-plus"></i> 添加</button>    
+                        {{end}}
+                    </div>
+                    <table id="dataGrid" class = "table table-bordered table-hover">
+
+                        <thead>
+                        <tr>
+                            <th class="bs-checkbox " style="width: 36px; " data-field="state">
+                                <div class="th-inner ">
+                                    <label class="mt-checkbox mt-checkbox-outline" style="padding-left: 20px">
+                                        <input name="btSelectAll" type="checkbox">
+                                        <span style="top: -14px"></span>
+                                    </label></div><div class="fht-cell">
+
+                                </div>
+                            </th>
+                            <th style="text-align: center; width: 90px; " data-field="Id">
+                                <div class="th-inner sortable both desc">ID</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th style="" data-field="Name"><div class="th-inner ">文件存储标识</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th style="" data-field="path"><div class="th-inner ">路径</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                            <th style="" data-field="name">
+                                <div class="th-inner ">文件名</div>
+                                <div class="fht-cell"></div>
+                            </th>
+
+                            <th style="" data-field="createtime">
+                                <div class="th-inner ">创建时间</div>
+                                <div class="fht-cell"></div>
+                            </th>
+
+                            <th style="text-align: center; width: 40px; " data-field="operate">
+                                <div class="th-inner ">操作</div>
+                                <div class="fht-cell"></div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{range .Row}}
+
+                        <tr data-pk="{{.Id}}" data-index="0" class="selected">
+                            <td class="bs-checkbox ">
+                                <label class="mt-checkbox mt-checkbox-outline" style="padding-left: 20px">
+                                    <input data-index="0" name="btSelectItem" type="checkbox" value="{{.Id}}">
+                                    <span style="top: -13px"></span>
+                                </label>
+                            </td>
+                            <td style="text-align: center; width: 90px; ">{{.Id}}</td>
+                            <td style="">{{.Name}}</td>
+                            <td style="">{{.Path}}</td>
+                            <td style="">{{.Fname}}</td>
+                            <td style="">{{.Createtime.Format "2006-01-02 15:04:05"}}</td>
+                            <td style="text-align: center; width: 40px; ">
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-xs" style="border-radius:5px" onclick="EditFun({{.Id}})">
+                                        编辑</button>
+                                    <button class="btn btn-danger btn-xs" style="border-radius:5px" onclick="DeleteFun({{.Id}})">
+                                        删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="box-footer clearfix">
+                    {{if and . .Page}}
+                        <span style="padding-left: 10px;">共 {{.Page.Nums}} 条记录</span>
+                    {{end}}
+                    {{if and . .Page.HasPages}}
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            {{if .Page.HasPrev}}
+                                <li><a href="{{.Page.PageLinkFirst}}"><i class="fa fa-angle-double-left"></i></a></li>
+                            {{end}}
+                            {{range $index, $page := .Page.Pages}}
+                                <li {{if $.page.IsActive .}} class="active" {{end}}>
+                                    <a href="{{$.Page.PageLink $page}}">{{$page}}</a>
+                                </li>
+                            {{end}}
+                            {{if .Page.HasNext}}
+                                <li><a href="{{.Page.PageLinkLast}}"><i class="fa fa-angle-double-right"></i></a></li>
+                            {{end}}
+                        </ul>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页面内容结束 -->
+</section>
+<!-- /.content -->
